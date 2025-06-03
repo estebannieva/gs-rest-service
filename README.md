@@ -5,7 +5,6 @@ Este proyecto es una API REST desarrollada con Spring Boot 3 y Java 21 para cons
 ## Índice
 
 - [Características](#características)
-- [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Ejecutar la aplicación](#ejecutar-la-aplicación)
 - [Respuesta de ejemplo](#respuesta-de-ejemplo)
@@ -24,20 +23,6 @@ Este proyecto es una API REST desarrollada con Spring Boot 3 y Java 21 para cons
 - Uso de Lombok para reducir el código boilerplate.
 - Tests de integración para `PriceController`, repositorio, mapeo y manejo de excepciones.
 - Flujo de trabajo con GitHub Flow para gestionar ramas y cambios.
-
-## Tecnologías utilizadas
-
-- Java 21
-- Spring Boot 3
-- Spring Data JPA
-- H2 Database
-- JUnit 5
-- Gradle
-- MapStruct
-- Lombok
-- Jacoco
-- SonarQube
-- Swagger UI
 
 ## Estructura del proyecto
 

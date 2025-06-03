@@ -21,7 +21,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title(appName)
                         .version(appVersion)
-                        .description("Pricing Rate Inquiry API Documentation")
+                        .description("Pricing API Documentation")
                 );
     }
 }

@@ -4,10 +4,8 @@ Este proyecto es una API REST desarrollada con Spring Boot 3 y Java 21 para cons
 
 ## Índice
 
-- [Inditex API](#inditex-api)
 - [Características](#características)
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
-- [Herramientas de calidad utilizadas](#herramientas-de-calidad-utilizadas)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Ejecutar la aplicación](#ejecutar-la-aplicación)
 - [Respuesta de ejemplo](#respuesta-de-ejemplo)
@@ -40,12 +38,6 @@ Este proyecto es una API REST desarrollada con Spring Boot 3 y Java 21 para cons
 - Jacoco
 - SonarQube
 - Swagger UI
-
-## Herramientas de calidad utilizadas
-
-- SonarQube IntelliJ Plugin y configuración del plugin de SonarQube en Gradle para análisis estático.
-- Jacoco configurado para generar reportes de cobertura en XML y HTML.
-- Buenas prácticas SOLID y Clean Code aplicadas en todo el proyecto.
 
 ## Estructura del proyecto
 

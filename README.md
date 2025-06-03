@@ -45,7 +45,8 @@ Este proyecto incluye un entorno Docker básico para levantar un servidor de Son
 docker/
 ├── docker-compose.yml     # Define el servicio SonarQube
 ├── generate-token.sh      # Script para cambiar contraseña y generar un token automáticamente
-└── start.sh               # Script para levantar SonarQube con Docker Compose
+├── start.sh               # Script para levantar SonarQube con Docker Compose
+└── stop.sh                # Script para detener y limpiar SonarQube
 ```
 
 ## Ejecutar la aplicación

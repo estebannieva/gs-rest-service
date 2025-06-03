@@ -152,6 +152,7 @@ cd docker
 ```
 
 Para detener SonarQube:
+
 ```bash
 ./stop.sh
 ```
@@ -163,6 +164,12 @@ docker run -d --name sonarqube \
   -p 9000:9000 \
   -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
   sonarqube:community
+```
+
+Puedes detener y eliminar el contenedor SonarQube con:
+
+```bash
+docker rm -f sonarqube
 ```
 
 Esto levantará el contenedor en segundo plano y expondrá SonarQube en [http://localhost:9000](http://localhost:9000).

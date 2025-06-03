@@ -17,7 +17,6 @@ public class Price {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.NONE)
     private UUID id;
 
     @NotNull
@@ -46,7 +45,7 @@ public class Price {
 
     @NotNull
     @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    private BigDecimal amount;
 
     @NotNull
     @Column(name = "curr", nullable = false)

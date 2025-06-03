@@ -150,6 +150,11 @@ cd docker
 ./start.sh
 ```
 
+Para detener SonarQube:
+```bash
+./stop.sh
+```
+
 Si no deseas usar `start.sh`, puedes levantar SonarQube directamente con el siguiente comando:
 
 ```bash

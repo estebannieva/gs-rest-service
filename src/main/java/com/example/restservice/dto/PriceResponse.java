@@ -9,8 +9,9 @@ public record PriceResponse(
         Integer productId,
         Integer brandId,
         Integer priceList,
+        Integer priority,
         LocalDateTime startDate,
         LocalDateTime endDate,
-        BigDecimal price,
+        BigDecimal amount,
         String currency
 ) {}

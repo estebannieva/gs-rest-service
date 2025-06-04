@@ -2,7 +2,6 @@ package com.example.restservice;
 
 import com.example.restservice.model.Price;
 import com.example.restservice.repository.PriceRepository;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.TestConstructor;
@@ -14,10 +13,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@AllArgsConstructor
 class PriceRepositoryTests {
 
     private final PriceRepository priceRepository;
+
+    public PriceRepositoryTests(PriceRepository priceRepository) {
+        this.priceRepository = priceRepository;
+    }
 
     @Test
     void shouldReturn_whenPriceSuccessful() {

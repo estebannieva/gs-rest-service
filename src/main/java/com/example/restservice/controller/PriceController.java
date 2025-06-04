@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +24,13 @@ import java.time.LocalDateTime;
         name = "Price Controller",
         description = "REST API for querying product pricing information based on brand, product, and date."
 )
-@AllArgsConstructor
 public class PriceController {
 
     private final PriceService service;
+
+    public PriceController(PriceService service) {
+        this.service = service;
+    }
 
     @GetMapping
     @Operation(

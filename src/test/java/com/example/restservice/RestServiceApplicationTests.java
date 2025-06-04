@@ -1,5 +1,6 @@
 package com.example.restservice;
 
+import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
@@ -8,13 +9,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 @SpringBootTest
+@AllArgsConstructor
 class RestServiceApplicationTests {
 
     private final ApplicationContext context;
-
-    public RestServiceApplicationTests(ApplicationContext context) {
-        this.context = context;
-    }
 
     @Test
     void applicationContext_startsSuccessfully() {

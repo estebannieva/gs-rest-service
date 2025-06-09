@@ -1,7 +1,7 @@
 package com.example.restservice;
 
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
@@ -9,18 +9,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 @SpringBootTest
-@AllArgsConstructor
 class RestServiceApplicationTests {
 
-    private final ApplicationContext context;
+    @Autowired
+    private ApplicationContext context;
 
     @Test
-    void applicationContext_startsSuccessfully() {
+    void applicationContextStartsSuccessfully() {
         assertThat(context).isNotNull();
     }
 
     @Test
-    void mainMethod_runsWithoutExceptions() {
+    void mainMethodRunsWithoutExceptions() {
         assertThatCode(() -> RestServiceApplication.main(new String[]{}))
                 .doesNotThrowAnyException();
     }

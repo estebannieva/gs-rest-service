@@ -1,4 +1,4 @@
-package com.example.restservice.dto;
+package com.example.restservice.pricing.infrastructure.controller.dto;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,7 @@
-package com.example.restservice.exception;
+package com.example.restservice.pricing.infrastructure.controller.handler;
 
-import com.example.restservice.dto.ErrorResponse;
+import com.example.restservice.pricing.domain.exception.PriceNotFoundException;
+import com.example.restservice.pricing.infrastructure.controller.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -25,7 +26,8 @@ public class RestExceptionHandler {
     public ErrorResponse handlePriceNotFound(PriceNotFoundException ex) {
         return new ErrorResponse(
                 404,
-                "Price not found", ex.getMessage()
+                "Price not found",
+                ex.getMessage()
         );
     }
 }

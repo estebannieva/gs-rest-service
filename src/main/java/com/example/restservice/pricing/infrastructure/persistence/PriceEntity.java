@@ -1,4 +1,4 @@
-package com.example.restservice.model;
+package com.example.restservice.pricing.infrastructure.persistence;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Price {
+public class PriceEntity {
 
     @Id
     @GeneratedValue

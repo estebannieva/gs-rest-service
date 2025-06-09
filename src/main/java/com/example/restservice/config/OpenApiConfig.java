@@ -21,7 +21,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title(appName)
                         .version(appVersion)
-                        .description("Pricing API Documentation")
+                        .description("API for managing pricing.")
                 );
     }
 }

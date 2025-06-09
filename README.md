@@ -4,39 +4,89 @@ Este proyecto es una API REST desarrollada con Spring Boot 3 y Java 21 para cons
 
 ## Índice
 
-- [Características](#características)
+- [Principios y Patrones Aplicados](#principios-y-patrones-aplicados)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Ejecutar la aplicación](#ejecutar-la-aplicación)
-- [Respuesta de ejemplo](#respuesta-de-ejemplo)
+- [Ejemplos de respuesta](#ejemplos-de-respuesta)
 - [Ejecutar los tests](#ejecutar-los-tests)
 - [Reporte de cobertura con JaCoCo](#reporte-de-cobertura-con-jacoco)
 - [Cómo levantar SonarQube](#cómo-levantar-sonarqube)
 - [Análisis con SonarQube](#análisis-con-sonarqube)
 
-## Características
+## Principios y Patrones Aplicados
 
-- Arquitectura en capas siguiendo el patrón MVC, con una separación clara entre `config`, `controller`, `service`, `repository`, `dto`, `mapper`, `exception` y `model`.
-- Acceso a datos con Spring Data JPA.
-- Base de datos H2 embebida (modo en memoria).
-- Gestión de excepciones centralizada con `@ControllerAdvice`.
-- Mapeo entre entidad y DTO con MapStruct.
-- Uso de Lombok para reducir el código boilerplate.
-- Tests de integración para `PriceController`, repositorio, mapeo y manejo de excepciones.
-- Flujo de trabajo con GitHub Flow para gestionar ramas y cambios.
+- Arquitectura Hexagonal (Ports & Adapters): Separación clara entre el dominio de negocio y las tecnologías externas. El paquete `domain` contiene el núcleo y sus interfaces (`port`), mientras que `infrastructure` actúa como adaptador.
+- Domain-Driven Design (DDD): División del dominio en agregados (`Price`, `PriceId`), uso de `UseCase` como entrada al dominio, y excepciones específicas como `PriceNotFoundException`.
+- CQRS (Command Query Responsibility Segregation): Separación explícita de consultas (`FindPriceQuery`) y manejadores (`FindPriceHandler`), reforzando el aislamiento de responsabilidades.
+- Query Handler: Implementado con `FindPriceHandler`, encargado de manejar la lógica de ejecución para una query.
+- Clean Code: Clases cohesionadas, principios SOLID, nombres significativos y responsabilidad única en cada componente.
+- Vertical Slicing: Organización por funcionalidad (`pricing`) en lugar de capas técnicas, lo que hace el código más claro y fácil de seguir.
+- Screaming Architecture: Desde el primer vistazo al árbol de paquetes (`domain`, `application`, `infrastructure`, `query`, etc.), se entiende que este proyecto trata sobre gestión de precios.
 
 ## Estructura del proyecto
 
 ```
-com.example.restservice
-├── config              # Configuración general (OpenAPI, etc.)
-├── controller          # Controlador REST
-├── dto                 # Objetos de transferencia de datos
-├── exception           # Excepciones personalizadas y handler global
-├── mapper              # Interfaces de mapeo DTO <-> Entidad
-├── model               # Entidad JPA (Price)
-├── repository          # Repositorio Spring Data
-├── service             # Lógica de negocio (interface + implementación)
-└── RestServiceApplication.java
+src
+├── main
+│   ├── java
+│   │   └── com/example/restservice
+│   │       ├── RestServiceApplication.java
+│   │       ├── config
+│   │       │   └── OpenApiConfig.java
+│   │       └── pricing
+│   │           ├── application
+│   │           │   └── query
+│   │           │       ├── FindPriceHandler.java
+│   │           │       └── FindPriceQuery.java
+│   │           ├── domain
+│   │           │   ├── exception
+│   │           │   │   └── PriceNotFoundException.java
+│   │           │   ├── model
+│   │           │   │   ├── Price.java
+│   │           │   │   └── PriceId.java
+│   │           │   └── port
+│   │           │       ├── in
+│   │           │       │   └── FindPriceUseCase.java
+│   │           │       └── out
+│   │           │           └── PriceRepository.java
+│   │           ├── infrastructure
+│   │           │   ├── controller
+│   │           │   │   ├── PriceController.java
+│   │           │   │   ├── dto
+│   │           │   │   │   └── ErrorResponse.java
+│   │           │   │   └── handler
+│   │           │   │       └── RestExceptionHandler.java
+│   │           │   ├── mapper
+│   │           │   │   └── PriceMapper.java
+│   │           │   └── persistence
+│   │           │       ├── JpaPriceRepository.java
+│   │           │       ├── JpaPriceRepositoryAdapter.java
+│   │           │       └── PriceEntity.java
+│   │           └── query
+│   │               └── dto
+│   │                   └── PriceResponse.java
+│   └── resources
+│       ├── application.yaml
+│       ├── data.sql
+│       └── schema.sql
+└── test
+    └── java
+        └── com/example/restservice
+            ├── RestServiceApplicationTests.java
+            ├── application
+            │   └── query
+            │       └── FindPriceHandlerTests.java
+            ├── domain
+            │   └── model
+            │       ├── PriceIdTests.java
+            │       └── PriceTests.java
+            └── infrastructure
+                ├── controller
+                │   └── PriceControllerTests.java
+                ├── mapper
+                │   └── PriceMapperTests.java
+                └── persistence
+                    └── JpaPriceRepositoryTests.java
 ```
 
 Este proyecto incluye un entorno Docker básico para levantar un servidor de SonarQube en local.
@@ -76,20 +126,20 @@ docker/
 
 4. Abre Swagger UI en tu navegador para explorar la API: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
-## Respuesta de ejemplo
+## Ejemplos de respuesta
 
 Respuesta devuelta por la API cuando se encuentra un precio válido para los parámetros indicados.
 
 ```json
 {
-  "id": "11111111-1111-1111-1111-111111111111",
-  "productId": 35455,
+  "id": "22222222-2222-2222-2222-222222222222",
   "brandId": 1,
-  "priceList": 1,
-  "priority": 0,
-  "startDate": "2020-06-14T00:00:00",
-  "endDate": "2020-12-31T23:59:59",
-  "price": 35.5,
+  "productId": 35455,
+  "startDate": "2020-06-14T15:00:00",
+  "endDate": "2020-06-14T18:30:00",
+  "priceList": 2,
+  "priority": 1,
+  "amount": 25.45,
   "currency": "EUR"
 }
 ```

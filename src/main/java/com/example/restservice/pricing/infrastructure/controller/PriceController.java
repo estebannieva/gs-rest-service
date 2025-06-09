@@ -1,8 +1,11 @@
-package com.example.restservice.controller;
+package com.example.restservice.pricing.infrastructure.controller;
 
-import com.example.restservice.dto.ErrorResponse;
-import com.example.restservice.dto.PriceResponse;
-import com.example.restservice.service.PriceService;
+import com.example.restservice.pricing.infrastructure.controller.dto.ErrorResponse;
+import com.example.restservice.pricing.application.query.FindPriceQuery;
+import com.example.restservice.pricing.domain.model.Price;
+import com.example.restservice.pricing.domain.port.in.FindPriceUseCase;
+import com.example.restservice.pricing.infrastructure.mapper.PriceMapper;
+import com.example.restservice.pricing.query.dto.PriceResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,17 +26,19 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/prices")
 @Tag(
         name = "Price Controller",
-        description = "REST API for querying product pricing information based on brand, product, and date."
+        description = "Controller for pricing management."
 )
 @AllArgsConstructor
 public class PriceController {
 
-    private final PriceService service;
+    private final FindPriceUseCase useCase;
+    private final PriceMapper mapper;
 
     @GetMapping
     @Operation(
-            summary = "Get applicable price",
-            description = "Returns the applicable price based on product ID, brand ID and application date."
+            summary = "Get price based on query parameters",
+            description = "Returns the price in effect for the given brand ID, product ID, and date." +
+                    "If multiple prices are valid within the date range, the one with the highest priority is returned."
     )
     @ApiResponse(
             responseCode = "200",
@@ -60,7 +65,7 @@ public class PriceController {
     )
     @ApiResponse(
             responseCode = "404",
-            description = "No applicable price found for the given parameters.",
+            description = "No price was found for the given parameters.",
             content = @Content(
                     mediaType = "application/json",
                     examples = @ExampleObject(
@@ -69,7 +74,7 @@ public class PriceController {
                                   "timestamp": "2025-05-29T12:30:00",
                                   "status": 404,
                                   "error": "Price not found",
-                                  "message": "No price found for productId=35455, brandId=1, date=2020-06-14T16:00"
+                                  "message": "No price found for brandId=9, productId=99999, date=9999-01-01T10:00"
                                 }
                             """
                     ),
@@ -86,14 +91,16 @@ public class PriceController {
             Integer productId,
 
             @Parameter(
-                    description = "Application date-time in ISO format (e.g., 2020-06-14T10:00:00)",
-                    example = "2020-06-14T10:00:00",
+                    description = "Application date-time in ISO format (e.g., 2020-06-14T16:00:00)",
+                    example = "2020-06-14T16:00:00",
                     required = true
             )
             @RequestParam
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             LocalDateTime date
     ) {
-        return service.getPrice(productId, brandId, date);
+        FindPriceQuery query = new FindPriceQuery(brandId, productId, date);
+        Price price = useCase.findPrice(query);
+        return mapper.toResponse(price);
     }
 }

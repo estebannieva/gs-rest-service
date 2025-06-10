@@ -8,7 +8,7 @@ Este proyecto es una API REST desarrollada con Spring Boot 3 y Java 21 para cons
 
 ## Índice
 
-- [Principios y Patrones Aplicados](#principios-y-patrones-aplicados)
+- [Principios y patrones aplicados](#principios-y-patrones-aplicados)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Ejecutar la aplicación](#ejecutar-la-aplicación)
 - [Ejemplos de respuesta](#ejemplos-de-respuesta)
@@ -17,7 +17,7 @@ Este proyecto es una API REST desarrollada con Spring Boot 3 y Java 21 para cons
 - [Cómo levantar SonarQube](#cómo-levantar-sonarqube)
 - [Análisis con SonarQube](#análisis-con-sonarqube)
 
-## Principios y Patrones Aplicados
+## Principios y patrones aplicados
 
 - Arquitectura Hexagonal (Ports & Adapters): Separación clara entre el dominio de negocio y las tecnologías externas. El paquete `domain` contiene el núcleo y sus interfaces (`port`), mientras que `infrastructure` actúa como adaptador.
 - Domain-Driven Design (DDD): División del dominio en agregados (`Price`, `PriceId`), uso de `UseCase` como entrada al dominio, y excepciones específicas como `PriceNotFoundException`.

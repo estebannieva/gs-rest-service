@@ -1,5 +1,9 @@
 # Inditex API
 
+[![build](https://github.com/estebannieva/gs-rest-service/actions/workflows/build.yml/badge.svg)](https://github.com/estebannieva/gs-rest-service/actions/workflows/build.yml)
+[![tests](https://github.com/estebannieva/gs-rest-service/actions/workflows/test.yml/badge.svg)](https://github.com/estebannieva/gs-rest-service/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/estebannieva/gs-rest-service/branch/main/graph/badge.svg)](https://codecov.io/gh/estebannieva/gs-rest-service)
+
 Este proyecto es una API REST desarrollada con Spring Boot 3 y Java 21 para consultar el precio aplicable a un producto en función de la fecha, el producto y la marca.
 
 ## Índice
@@ -89,10 +93,20 @@ src
                     └── JpaPriceRepositoryTests.java
 ```
 
+El proyecto utiliza GitHub Actions para automatizar tareas de build, test y cobertura.
+
+```
+.github
+└── workflows
+    ├── build.yml       # Compila el proyecto
+    ├── test.yml        # Ejecuta los tests
+    └── codecov.yml     # Genera y sube el reporte de cobertura a Codecov
+```
+
 Este proyecto incluye un entorno Docker básico para levantar un servidor de SonarQube en local.
 
 ```
-docker/
+docker
 ├── docker-compose.yml     # Define el servicio SonarQube
 ├── generate-token.sh      # Script para cambiar contraseña y generar un token automáticamente
 ├── start.sh               # Script para levantar SonarQube con Docker Compose
